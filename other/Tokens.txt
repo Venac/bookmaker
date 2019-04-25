@@ -1,0 +1,7 @@
+{
+	"email" : "stefanfilipovic1987@gmail.com",
+	"password" : "lepoje123"
+}
+
+eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGVmYW5maWxpcG92aWMxOTg3QGdtYWlsLmNvbSIsInR5cGUiOiJVc2VyIn0.7HanKnO5yulbjDwYt0GCOh_HVkEyrElGxRDepIKT3o0
+

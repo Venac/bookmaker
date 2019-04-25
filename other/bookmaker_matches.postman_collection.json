@@ -1,0 +1,228 @@
+{
+	"info": {
+		"_postman_id": "d6a6a2b1-4bb8-4676-bf43-d7b9176690ca",
+		"name": "bookmaker_matches",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/matches/findAll",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/matches/findAll",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"matches",
+						"findAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/matches/save",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"matchDate\" : \"2019-04-05@12:30:00.000+0200\",\n\t\"homeTeam\" : {\n\t\t\"id\" : \"1\",\n\t\t\"name\" : \"Liverpool\"\n\t},\n\t\"visitingTeam\" : {\n\t\t\"id\" : \"2\",\n\t\t\"name\" : \"Manchester City\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/matches/save",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"matches",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/matches/find/1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/matches/find/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"matches",
+						"find",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/matches/update/1",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"outcome\" : \"3\",\n\t\"matchDate\" : \"2019-04-05@15:45:00.000+0200\",\n\t\"homeTeam\" : {\n\t\t\"id\" : \"3\",\n\t\t\"name\" : \"Arsenal\"\n\t},\n\t\"visitingTeam\" : {\n\t\t\"id\" : \"4\",\n\t\t\"name\" : \"Tottenham\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/matches/update/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"matches",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/matches/delete/5",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/matches/delete/5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"matches",
+						"delete",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/matches/findBettable",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/matches/findBettable",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"matches",
+						"findBettable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/matches/findByOperator/1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/matches/findByOperator/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"matches",
+						"findByOperator",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

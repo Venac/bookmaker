@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "ad6e7948-4ea8-4eb0-b61c-56cf4a93f5be",
+		"name": "bookmaker_users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/users/findAll",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/users/findAll",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"findAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/users/save",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJsZXBvamVAZ21haWwuY29tIiwidHlwZSI6IlVzZXIifQ.SdIdVvcXvbx9r4JWh89FKebDo8V8bffge6jSILkArkA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\" : \"Radoje\",\n\t\"lastName\" : \"Radojevic\",\n\t\"email\" : \"radoje@gmail.com\",\n\t\"password\" : \"radoje123\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/users/save",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/users/find/1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/users/find/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"find",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/users/update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					},
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJsZXBvamVAZ21haWwuY29tIiwidHlwZSI6IlVzZXIifQ.SdIdVvcXvbx9r4JWh89FKebDo8V8bffge6jSILkArkA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "unbreakable!"
+				},
+				"url": {
+					"raw": "localhost:8080/users/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/users/delete/1",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/users/delete/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"delete",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/users/payin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGVmYW5maWxpcG92aWMxOTg3QGdtYWlsLmNvbSIsInR5cGUiOiJVc2VyIn0.7HanKnO5yulbjDwYt0GCOh_HVkEyrElGxRDepIKT3o0",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"amount\" : \"10\",\n\t\"currency\" : \"EUR\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/users/payin",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"payin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/users/payout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGVmYW5maWxpcG92aWMxOTg3QGdtYWlsLmNvbSIsInR5cGUiOiJVc2VyIn0.7HanKnO5yulbjDwYt0GCOh_HVkEyrElGxRDepIKT3o0",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"amount\" : \"10\",\n\t\"currency\" : \"USD\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/users/payout",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"payout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/users/period",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGVmYW5maWxpcG92aWMxOTg3QGdtYWlsLmNvbSIsInR5cGUiOiJVc2VyIn0.7HanKnO5yulbjDwYt0GCOh_HVkEyrElGxRDepIKT3o0",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"start\" : \"2019-04-14@00:00:00.000+0000\",\n\t\"end\" : \"2019-04-15@00:00:00.000+0000\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/users/period",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"period"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

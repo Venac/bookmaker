@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "7dba2884-8c10-4ac0-86f6-e73494fb06c2",
+		"name": "bookmaker_transactions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/transactions/findAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/transactions/findAll",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions",
+						"findAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/transactions",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"transactionDate\": \"2019-04-07@22:00:00.000+0000\",\n    \"amount\": 5000,\n    \"transactionType\": 1,\n    \"bookmaker\": {\n        \"id\": 1,\n        \"name\": \"Balkanbet\",\n        \"balance\": 150000000\n    },\n    \"user\": {\n        \"id\": 1,\n        \"balance\": 9000,\n        \"firstName\": \"Lepoje\",\n        \"lastName\": \"Lepojevic\",\n        \"email\": \"lepoje@gmail.com\"\n    }\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/transactions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/transactions/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/transactions/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/transactions/1",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"transactionDate\": \"2019-04-07@22:00:00.000+0000\",\n    \"amount\": 2000,\n    \"transactionType\": 2,\n    \"bookmaker\": {\n        \"id\": 1,\n        \"name\": \"Balkanbet\",\n        \"balance\": 150000000\n    },\n    \"user\": {\n        \"id\": 1,\n        \"balance\": 9000,\n        \"firstName\": \"Lepoje\",\n        \"lastName\": \"Lepojevic\",\n        \"email\": \"lepoje@gmail.com\"\n    }\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/transactions/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/transactions/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/transactions/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

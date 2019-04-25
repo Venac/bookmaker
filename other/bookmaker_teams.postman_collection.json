@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "df452a7a-56ec-43b4-a60e-73ebefe04dbf",
+		"name": "bookmaker_teams",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/teams/findAll",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/teams/findAll?=",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams",
+						"findAll"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/teams",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Cheslea\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/teams/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/teams/1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/teams/find/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams",
+						"find",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/teams/1",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"QWERTY\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/teams/update/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/teams/1",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/teams/delete/6",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams",
+						"delete",
+						"6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "e3da7490-17f3-45d9-88c6-b7024f9ef62e",
+		"name": "bookmaker_operators",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/operators/findAll",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/operators/findAll?=",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"operators",
+						"findAll"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/operators",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\" : \"Miloje\",\n\t\"lastName\" : \"Milojevic\",\n\t\"email\" : \"miloje@gmail.com\",\n\t\"password\" : \"miloje123\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/operators/save",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"operators",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/operators/1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/operators/find/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"operators",
+						"find",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/operators/1",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					},
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "lepoje123"
+				},
+				"url": {
+					"raw": "localhost:8080/operators/update/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"operators",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/operators/1",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/operators/delete/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"operators",
+						"delete",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

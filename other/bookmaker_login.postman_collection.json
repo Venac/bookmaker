@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "a07ac08a-f354-4967-a2b3-f149644915f5",
+		"name": "bookmaker_login",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/login/user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\" : \"stefanfilipovic1987@gmail.com\",\n\t\"password\" : \"lepoje123\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/login/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/login/operator",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\" : \"stanoje@gmail.com\",\n\t\"password\" : \"stanoje123\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/login/operator",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login",
+						"operator"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

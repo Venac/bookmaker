@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "44e5be5a-6b3c-4928-a6c0-d2650bd2281c",
+		"name": "bookmaker_tickets",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/tickets/findAll",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJsZXBvamVAZ21haWwuY29tIiwidHlwZSI6IlVzZXIifQ.SdIdVvcXvbx9r4JWh89FKebDo8V8bffge6jSILkArkA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/tickets/findAll",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tickets",
+						"findAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/tickets/save",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGVmYW5maWxpcG92aWMxOTg3QGdtYWlsLmNvbSIsInR5cGUiOiJVc2VyIn0.7HanKnO5yulbjDwYt0GCOh_HVkEyrElGxRDepIKT3o0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"betAmount\" : \"1500\",\n\t\"won\" : \"0\",\n\t\"matchesTickets\" : [\n\t\t{\n\t\t\t\"outcomePrediction\" : \"1\",\n\t\t\t\"match\" : {\n\t\t\t\t\"id\" : \"1\",\n\t\t\t\t\"matchDate\" : \"2019-04-06@17:34:43.000+0200\",\n\t\t\t\t\"homeTeam\" : {\n\t\t\t\t\t\"id\" : \"1\",\n\t\t\t\t\t\"name\" : \"Liverpool\"\n\t\t\t\t},\n\t\t\t\t\"visitingTeam\" : {\n\t\t\t\t\t\"id\" : \"2\",\n\t\t\t\t\t\"name\" : \"Manchester United\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"outcomePrediction\" : \"2\",\n\t\t\t\"match\" : {\n\t\t\t\t\"id\" : \"2\",\n\t\t\t\t\"matchDate\" : \"2019-04-06@17:34:43.000+0200\",\n\t\t\t\t\"homeTeam\" : {\n\t\t\t\t\t\"id\" : \"1\",\n\t\t\t\t\t\"name\" : \"Liverpool\"\n\t\t\t\t},\n\t\t\t\t\"visitingTeam\" : {\n\t\t\t\t\t\"id\" : \"3\",\n\t\t\t\t\t\"name\" : \"Arsenal\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\t]\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/tickets/save",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tickets",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/tickets/find/1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJsZXBvamVAZ21haWwuY29tIiwidHlwZSI6IlVzZXIifQ.SdIdVvcXvbx9r4JWh89FKebDo8V8bffge6jSILkArkA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/tickets/find/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tickets",
+						"find",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/tickets/findByUser/1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJsZXBvamVAZ21haWwuY29tIiwidHlwZSI6IlVzZXIifQ.SdIdVvcXvbx9r4JWh89FKebDo8V8bffge6jSILkArkA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/tickets/findByUser",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tickets",
+						"findByUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/tickets/update/1",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "2"
+				},
+				"url": {
+					"raw": "localhost:8080/tickets/update/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tickets",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/tickets/1",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJzdGFub2plQGdtYWlsLmNvbSIsInR5cGUiOiJPcGVyYXRvciJ9.RFEQ6pnQDS8lMg_jngt1sa0BgeTLtiaERL7jBPt7f-M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/tickets/delete/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tickets",
+						"delete",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
