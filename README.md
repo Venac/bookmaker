@@ -1,5 +1,7 @@
 # Spring Boot REST API for online betting
 
+JavaSE 1.8; Spring Tool Suite Version: 3.9.8.RELEASE
+
 REST API emulates an online bookmaker. Registered users can pick from a list of available sport matches to bet on. 
 
 Each match is comprised of competition between two teams - it has a play date and one of three possible outcomes on which the users can bet - home team wins the game, visiting team wins the game or there is a draw. Match outcome is generated randomly at midnight on the following day. Teams and matches are added through the API by the bookmaker staff – operators.
