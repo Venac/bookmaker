@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import rs.netcast.stefan.filipovic9.bookmaker.dto.TicketFullDto;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.TicketNoIdDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.ticket.TicketFullDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.ticket.TicketInitialResponseDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.ticket.TicketNoIdDto;
 import rs.netcast.stefan.filipovic9.bookmaker.service.TicketService;
 
 @RestController
@@ -31,7 +32,7 @@ public class TicketController {
 	}
 	
 	@PostMapping("/save")
-	public TicketFullDto saveTicket(@RequestBody TicketNoIdDto ticket, HttpServletRequest request) throws ParseException {
+	public TicketInitialResponseDto saveTicket(@RequestBody TicketNoIdDto ticket, HttpServletRequest request) throws ParseException {
 		int idUser = (int)request.getAttribute("id");
 		return ticketService.saveTicket(ticket, idUser);
 	}

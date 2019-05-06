@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import rs.netcast.stefan.filipovic9.bookmaker.dto.RegisterDto;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.RegistreeTokenDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.register.RegisterDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.register.RegistreeTokenDto;
 import rs.netcast.stefan.filipovic9.bookmaker.security.Access;
 
 @RestController
@@ -25,8 +25,4 @@ public class RegisterController {
 		return access.generateRegisterJWT(r, request);
 	}
 	
-	@PostMapping("/operator")
-	public RegistreeTokenDto generateOperatorJWT(@RequestBody RegisterDto r, HttpServletRequest request) throws IOException {
-		return access.generateRegisterJWT(r, request);
-	}
 }

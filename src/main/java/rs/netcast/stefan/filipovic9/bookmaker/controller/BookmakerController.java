@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import rs.netcast.stefan.filipovic9.bookmaker.dto.BookmakerFullDto;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.BookmakerNoIdDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.bookmaker.BookmakerFullDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.bookmaker.BookmakerNoIdDto;
 import rs.netcast.stefan.filipovic9.bookmaker.service.BookmakerService;
+
+/*
+ * Bookmaker Controller is for testing and demonstration purposes 
+ */
 
 @RestController
 @RequestMapping("/bookmakers")
@@ -24,12 +28,12 @@ public class BookmakerController {
 	
 	@GetMapping("/findAll")
 	public List<BookmakerFullDto> getBookmakers() {
-		return bookmakerService.getMatches();
+		return bookmakerService.findBookmakers();
 	}
 	
 	@PostMapping("/save")
 	public BookmakerFullDto addBookmaker(@RequestBody BookmakerNoIdDto b) {
-		return bookmakerService.addBookmaker(b);
+		return bookmakerService.saveBookmaker(b);
 	}
 	
 	@GetMapping("/find/{id}")

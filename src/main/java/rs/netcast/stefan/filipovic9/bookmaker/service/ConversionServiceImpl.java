@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import rs.netcast.stefan.filipovic9.bookmaker.dto.ConversionDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.misc.ConversionDto;
 
 @Service
 public class ConversionServiceImpl implements ConversionService {

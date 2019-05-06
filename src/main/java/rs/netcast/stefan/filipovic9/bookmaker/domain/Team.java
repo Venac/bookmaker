@@ -12,6 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data @AllArgsConstructor @NoArgsConstructor
 @Entity
 @Table(name="teams")
 public class Team {
@@ -23,49 +28,14 @@ public class Team {
 	private String name;
 	
 	@OneToMany(mappedBy = "homeTeam", cascade = CascadeType.REMOVE)
-	private List<Match> homeMatches;
+	private List<Match> homeMatches = new ArrayList<Match>();
 	
 	@OneToMany(mappedBy = "visitingTeam", cascade = CascadeType.REMOVE)
-	private List<Match> visitingMatches;
-
-	public Team() {
-		homeMatches = new ArrayList<Match>();
-		visitingMatches = new ArrayList<Match>();
-	}
-
-	public Team(String name) {
-		this.name = name;
-		homeMatches = new ArrayList<Match>();
-		visitingMatches = new ArrayList<Match>();
-	}
-
-	public Team(int id, String name) {
-		this.id = id;
-		this.name = name;
-		homeMatches = new ArrayList<Match>();
-		visitingMatches = new ArrayList<Match>();
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	private List<Match> visitingMatches = new ArrayList<Match>();
 
 	@Override
 	public String toString() {
 		return "Team [id=" + id + ", name=" + name + "]";
 	}
-
 	
 }

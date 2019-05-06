@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import rs.netcast.stefan.filipovic9.bookmaker.dto.TeamNoIdDto;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.TeamNoMatchesDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.team.TeamNoIdDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.team.TeamNoMatchesDto;
 import rs.netcast.stefan.filipovic9.bookmaker.service.TeamService;
 
 @RestController
@@ -38,8 +38,8 @@ public class TeamController {
 	}
 	
 	@PutMapping("/update/{id}")
-	public TeamNoMatchesDto updateTeam(@PathVariable int id, @RequestBody TeamNoMatchesDto team) {
-		return teamService.updateTeam(id, team);
+	public TeamNoMatchesDto updateTeam(@PathVariable int id, @RequestBody String name) {
+		return teamService.updateTeam(id, name);
 	}
 	
 	@DeleteMapping("/delete/{id}")

@@ -1,0 +1,36 @@
+{
+	"betAmount" : "1500",
+	"won" : "0",
+	"matchesTickets" : [
+		{
+			"outcomePrediction" : "1",
+			"match" : {
+				"id" : "1",
+				"matchDate" : "2019-04-06@17:34:43.000+0200",
+				"homeTeam" : {
+					"id" : "1",
+					"name" : "Liverpool"
+				},
+				"visitingTeam" : {
+					"id" : "2",
+					"name" : "Manchester United"
+				}
+			}
+		},
+		{
+			"outcomePrediction" : "2",
+			"match" : {
+				"id" : "2",
+				"matchDate" : "2019-04-06@17:34:43.000+0200",
+				"homeTeam" : {
+					"id" : "1",
+					"name" : "Liverpool"
+				},
+				"visitingTeam" : {
+					"id" : "3",
+					"name" : "Arsenal"
+				}
+			}
+		}
+		]
+}

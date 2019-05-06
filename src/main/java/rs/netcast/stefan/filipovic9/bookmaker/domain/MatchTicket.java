@@ -10,6 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data @AllArgsConstructor @NoArgsConstructor
 @Entity
 @Table(name = "matches_tickets")
 public class MatchTicket {
@@ -23,38 +28,6 @@ public class MatchTicket {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "match_id")
 	private Match match;
-
-	public MatchTicket() {
-
-	}
-
-	public MatchTicket(int outcomePrediction) {
-		this.outcomePrediction = outcomePrediction;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getOutcomePrediction() {
-		return outcomePrediction;
-	}
-
-	public void setOutcomePrediction(int outcomePrediction) {
-		this.outcomePrediction = outcomePrediction;
-	}
-
-	public Match getMatch() {
-		return match;
-	}
-
-	public void setMatch(Match match) {
-		this.match = match;
-	}
 
 	public String avoidRecursion() {
 		return "MatchTicket [id=" + id + ", outcomePrediction=" + outcomePrediction + "]";

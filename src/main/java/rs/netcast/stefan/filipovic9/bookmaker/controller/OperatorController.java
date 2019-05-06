@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import rs.netcast.stefan.filipovic9.bookmaker.dto.OperatorFullNoMatches;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.OperatorFullWithMatches;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.OperatorInitialRequestDto;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.OperatorNoPassMatchesDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.operator.OperatorFullWithMatches;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.operator.OperatorInitialRequestDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.operator.OperatorNoPassMatchesDto;
 import rs.netcast.stefan.filipovic9.bookmaker.service.OperatorService;
 
 @RestController
@@ -43,7 +42,7 @@ public class OperatorController {
 	}
 	
 	@PutMapping("/update/{id}")
-	public OperatorFullNoMatches updateOperator(@PathVariable int id, @RequestBody String password) {
+	public String updateOperator(@PathVariable int id, @RequestBody String password) {
 		return operatorService.updateOperator(id, password);
 	}
 	

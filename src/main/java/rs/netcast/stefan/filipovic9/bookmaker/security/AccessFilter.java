@@ -27,28 +27,30 @@ public class AccessFilter implements Filter {
 	static {
 		accessURIs.add("/login/user");
 		accessURIs.add("/login/operator");
-//		accessURIs.add("/register/operator");
 		accessURIs.add("/register/user");
 		
 		userURIs.add("/tickets/save");
 		userURIs.add("/matches/findBettable");
 		userURIs.add("/tickets/findByUser");
 		userURIs.add("/users/update");
-		userURIs.add("/users/payin");
-		userURIs.add("/users/payout");
+		userURIs.add("/users/addFunds");
+		userURIs.add("/users/withdrawFunds");
 		userURIs.add("/users/period");
 		
 		operatorURIs.add("/matches");
 		operatorURIs.add("/teams");
 		operatorURIs.add("/operators");
-		operatorURIs.add("/tickets/save");
 		operatorURIs.add("/tickets/findAll");
 		operatorURIs.add("/tickets/find");
 		operatorURIs.add("/tickets/update");
 		operatorURIs.add("/tickets/delete");
 		operatorURIs.add("/users/findAll");
-		operatorURIs.add("/users/findById");
+		operatorURIs.add("/users/find");
 		operatorURIs.add("/users/delete");
+		operatorURIs.add("/transactions/find");
+		operatorURIs.add("/transactions/findAll");
+		// for testing and demonstration purposes
+		operatorURIs.add("/bookmakers");
 	}
 	
 	@Autowired

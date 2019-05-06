@@ -17,6 +17,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data @AllArgsConstructor @NoArgsConstructor
 @Entity
 @Table(name = "matches")
 public class Match {
@@ -42,91 +47,7 @@ public class Match {
 	private Operator operator;
 
 	@OneToMany(mappedBy = "match")
-	private List<MatchTicket> matchesTickets;
-	
-	public Match() {
-		matchesTickets = new ArrayList<MatchTicket>();
-	}
-	
-	public Match(Date matchDate, Team homeTeam, Team visitingTeam) {
-		this.matchDate = matchDate;
-		this.homeTeam = homeTeam;
-		this.visitingTeam = visitingTeam;
-		matchesTickets = new ArrayList<MatchTicket>();
-	}
-
-	public Match(Date matchDate, Team homeTeam, Team visitingTeam, Operator operator) {
-		this.matchDate = matchDate;
-		this.homeTeam = homeTeam;
-		this.visitingTeam = visitingTeam;
-		this.operator = operator;
-		matchesTickets = new ArrayList<MatchTicket>();
-	}
-
-	public Match(int id, int outcome, Date matchDate, Team homeTeam, Team visitingTeam) {
-		this.id = id;
-		this.outcome = outcome;
-		this.matchDate = matchDate;
-		this.homeTeam = homeTeam;
-		this.visitingTeam = visitingTeam;
-		matchesTickets = new ArrayList<MatchTicket>();
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getOutcome() {
-		return outcome;
-	}
-
-	public void setOutcome(int outcome) {
-		this.outcome = outcome;
-	}
-
-	public Team getHomeTeam() {
-		return homeTeam;
-	}
-
-	public void setHomeTeam(Team homeTeam) {
-		this.homeTeam = homeTeam;
-	}
-
-	public Team getVisitingTeam() {
-		return visitingTeam;
-	}
-
-	public void setVisitingTeam(Team visitingTeam) {
-		this.visitingTeam = visitingTeam;
-	}
-
-	public Date getMatchDate() {
-		return matchDate;
-	}
-
-	public void setMatchDate(Date date) {
-		this.matchDate = date;
-	}
-
-	public List<MatchTicket> getMatchesTickets() {
-		return matchesTickets;
-	}
-
-	public void setMatchesTickets(List<MatchTicket> matchesTickets) {
-		this.matchesTickets = matchesTickets;
-	}
-
-	public Operator getOperator() {
-		return operator;
-	}
-
-	public void setOperator(Operator operator) {
-		this.operator = operator;
-	}
+	private List<MatchTicket> matchesTickets = new ArrayList<MatchTicket>();
 
 	public String avoidRecursion() {
 		return "Match [id=" + id + ", outcome=" + outcome + ", date=" + matchDate + "]";

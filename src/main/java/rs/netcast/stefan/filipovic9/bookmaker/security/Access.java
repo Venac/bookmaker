@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,9 @@ import rs.netcast.stefan.filipovic9.bookmaker.dao.OperatorDAO;
 import rs.netcast.stefan.filipovic9.bookmaker.dao.UserDAO;
 import rs.netcast.stefan.filipovic9.bookmaker.domain.Operator;
 import rs.netcast.stefan.filipovic9.bookmaker.domain.User;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.RegisterDto;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.RegistreeLogInDto;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.RegistreeTokenDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.register.RegisterDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.register.RegistreeLogInDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.register.RegistreeTokenDto;
 import rs.netcast.stefan.filipovic9.bookmaker.service.ConversionService;
 
 @Service
@@ -29,6 +30,8 @@ public class Access {
 	private OperatorDAO operatorDAO;
 	@Autowired
 	private ConversionService conversionService;
+	@Autowired
+	private ModelMapper mapper;
 
 	public String generateLogInJWT(RegistreeLogInDto r, HttpServletRequest request) {
 		if (request.getRequestURI().contains("/login/user")) {
@@ -49,7 +52,7 @@ public class Access {
 		if (request.getRequestURI().contains("/register/user")) {
 			User u = userDAO.findByEmail(r.getEmail());
 			if (u == null) {
-				u = new User(r.getFirstName(), r.getLastName(), r.getEmail(), r.getPassword(), r.getBookmaker());
+				u = mapper.map(r, User.class);
 				u.setBalance(conversionService.convertInitial(5));
 				u = userDAO.save(u);
 				String token = generateToken(u, User.class.getSimpleName());
@@ -61,7 +64,7 @@ public class Access {
 		if (request.getRequestURI().contains("/register/operator")) {
 			Operator o = operatorDAO.findByEmail(r.getEmail());
 			if (o == null) {
-				o = new Operator(r.getFirstName(), r.getLastName(), r.getEmail(), r.getPassword(), r.getBookmaker());
+				o = mapper.map(r, Operator.class);
 				o = operatorDAO.save(o);
 				String token = generateToken(o, Operator.class.getSimpleName());
 				return new RegistreeTokenDto(o.getId(), o.getFirstName(), o.getLastName(), o.getEmail(), token);

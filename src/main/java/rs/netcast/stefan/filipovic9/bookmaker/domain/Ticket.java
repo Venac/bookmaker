@@ -15,6 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data @AllArgsConstructor @NoArgsConstructor
 @Entity
 @Table(name = "tickets")
 public class Ticket {
@@ -33,57 +38,7 @@ public class Ticket {
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "ticket_id")
-	private List<MatchTicket> matchesTickets;
-
-	public Ticket() {
-		matchesTickets = new ArrayList<MatchTicket>();
-	}
-
-	public Ticket(double betAmount, User user) {
-		this.betAmount = betAmount;
-		this.user = user;
-		matchesTickets = new ArrayList<MatchTicket>();
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public double getBetAmount() {
-		return betAmount;
-	}
-
-	public void setBetAmount(double betAmount) {
-		this.betAmount = betAmount;
-	}
-
-	public int getWon() {
-		return won;
-	}
-
-	public void setWon(int won) {
-		this.won = won;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public List<MatchTicket> getMatchesTickets() {
-		return matchesTickets;
-	}
-
-	public void setMatchesTickets(List<MatchTicket> matchesTickets) {
-		this.matchesTickets = matchesTickets;
-	}
+	private List<MatchTicket> matchesTickets = new ArrayList<MatchTicket>();
 
 	public String avoidRecursion() {
 		return "Ticket [id=" + id + ", betAmount=" + betAmount + ", won=" + won + "]";

@@ -14,6 +14,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data @AllArgsConstructor @NoArgsConstructor @Builder
 @Entity
 @Table(name = "transactions")
 public class Transaction {
@@ -22,7 +28,7 @@ public class Transaction {
 	@Column(name = "id")
 	private int id;
 	@Column(name = "transaction_date")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date transactionDate;
 	@Column(name = "amount")
 	private double amount;
@@ -43,11 +49,8 @@ public class Transaction {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	public Transaction() {
-		
-	}
-
 	public Transaction(Date transactionDate, double amount, int transactionType, Bookmaker bookmaker, User user) {
+		super();
 		this.transactionDate = transactionDate;
 		this.amount = amount;
 		this.transactionType = transactionType;
@@ -56,78 +59,6 @@ public class Transaction {
 		this.currency = "RSD";
 		this.rate = 1;
 		this.conversionLog = "No conversion";
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Date getTransactionDate() {
-		return transactionDate;
-	}
-
-	public void setTransactionDate(Date transactionDate) {
-		this.transactionDate = transactionDate;
-	}
-
-	public double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
-
-	public int getTransactionType() {
-		return transactionType;
-	}
-
-	public void setTransactionType(int transactionType) {
-		this.transactionType = transactionType;
-	}
-
-	public String getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
-
-	public double getRate() {
-		return rate;
-	}
-
-	public void setRate(double rate) {
-		this.rate = rate;
-	}
-
-	public String getConversionLog() {
-		return conversionLog;
-	}
-
-	public void setConversionLog(String conversionLog) {
-		this.conversionLog = conversionLog;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Bookmaker getBookmaker() {
-		return bookmaker;
-	}
-
-	public void setBookmaker(Bookmaker bookmaker) {
-		this.bookmaker = bookmaker;
 	}
 
 	public String avoidRecursion() {

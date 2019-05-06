@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import rs.netcast.stefan.filipovic9.bookmaker.dto.RegistreeLogInDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.register.RegistreeLogInDto;
 import rs.netcast.stefan.filipovic9.bookmaker.security.Access;
 
 @RestController

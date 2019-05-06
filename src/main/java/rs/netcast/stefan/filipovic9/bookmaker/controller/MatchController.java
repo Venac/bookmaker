@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import rs.netcast.stefan.filipovic9.bookmaker.dto.MatchFullDto;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.MatchInitialRequestDto;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.MatchInitialResponseDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.match.MatchFullDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.match.MatchInitialRequestDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.match.MatchInitialResponseDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.match.MatchNoOpDto;
 import rs.netcast.stefan.filipovic9.bookmaker.service.MatchService;
 
 @RestController
@@ -39,7 +40,7 @@ public class MatchController {
 	
 	@GetMapping("find/{id}")
 	public MatchFullDto findMatchById(@PathVariable int id) {
-		return matchService.findMatchById(id);
+		return matchService.findMatch(id);
 	}
 	
 	@PutMapping("update/{id}")
@@ -54,7 +55,7 @@ public class MatchController {
 	}
 	
 	@GetMapping("/findByOperator/{id}")
-	public List<MatchFullDto> findByOperator(@PathVariable int id) {
+	public List<MatchNoOpDto> findByOperator(@PathVariable int id) {
 		return matchService.findByOperator(id);
 	}
 	

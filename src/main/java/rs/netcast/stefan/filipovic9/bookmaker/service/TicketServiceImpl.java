@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,11 +20,9 @@ import rs.netcast.stefan.filipovic9.bookmaker.domain.MatchTicket;
 import rs.netcast.stefan.filipovic9.bookmaker.domain.Ticket;
 import rs.netcast.stefan.filipovic9.bookmaker.domain.Transaction;
 import rs.netcast.stefan.filipovic9.bookmaker.domain.User;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.MatchTicketFullDto;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.MatchTicketNoIdDto;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.TicketFullDto;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.TicketNoIdDto;
-import rs.netcast.stefan.filipovic9.bookmaker.dto.TicketNoUserDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.ticket.TicketFullDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.ticket.TicketInitialResponseDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.ticket.TicketNoIdDto;
 import rs.netcast.stefan.filipovic9.bookmaker.enums.MatchOutcome;
 import rs.netcast.stefan.filipovic9.bookmaker.enums.TicketOutcome;
 import rs.netcast.stefan.filipovic9.bookmaker.enums.TransactionType;
@@ -33,15 +32,13 @@ public class TicketServiceImpl implements TicketService {
 	@Autowired
 	private TicketDAO ticketDAO;
 	@Autowired
-	private MatchService matchService;
-	@Autowired
-	private UserService userService;
-	@Autowired
 	private TransactionDAO transactionDAO;
 	@Autowired
 	private UserDAO userDAO;
 	@Autowired
 	private BookmakerDAO bookmakerDAO;
+	@Autowired
+	private ModelMapper mapper;
 
 	public static final double ODDS = 1.5;
 
@@ -50,59 +47,63 @@ public class TicketServiceImpl implements TicketService {
 		List<Ticket> tickets = ticketDAO.findAll();
 		List<TicketFullDto> response = new ArrayList<TicketFullDto>();
 		for (Ticket t : tickets) {
-			response.add(mapDomainToFullDto(t));
+			response.add(mapper.map(t, TicketFullDto.class));
 		}
 		return response;
 	}
 
 	@Transactional
 	@Override
-	public TicketFullDto saveTicket(TicketNoIdDto ticket, int idUser) throws ParseException {
+	public TicketInitialResponseDto saveTicket(TicketNoIdDto ticket, int idUser) throws ParseException {
 		User user = userDAO.findById(idUser).get();
 		if (user.getBalance() >= ticket.getBetAmount()) {
-			Ticket t = mapNoIdToDomain(ticket);
+			Ticket t = mapper.map(ticket, Ticket.class);
 			t.setUser(user);
-			Ticket s = ticketDAO.save(t);
-			Transaction transaction = new Transaction(new Date(), s.getBetAmount(),
-					TransactionType.TICKET_PLAYED.value(), s.getUser().getBookmaker(), s.getUser());
-			transaction.setCurrency("RSD");
-			transaction.setRate(1);
-			transaction.setConversionLog("No conversion");
+			Ticket saved = ticketDAO.save(t);
+			Transaction transaction = new Transaction(new Date(), saved.getBetAmount(),
+					TransactionType.TICKET_PLAYED.value(), user.getBookmaker(), user);
 			transactionDAO.save(transaction);
 			user.setBalance(user.getBalance() - ticket.getBetAmount());
-//			Ticket full = ticketDAO.save(s);
-//			userDAO.save(user);
-			return mapDomainToFullDto(s);
+			return mapper.map(saved, TicketInitialResponseDto.class);
 		}
 		return null;
 	}
 
 	@Override
 	public TicketFullDto findTicket(int id) throws ParseException {
-		Ticket t = ticketDAO.findById(id).get();
-		System.out.println("ticket: " + t);
-		System.out.println("combinaions: " + t.getMatchesTickets().size());
-		return mapDomainToFullDto(t);
+		try {
+			return mapper.map(ticketDAO.findById(id).get(), TicketFullDto.class);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public TicketFullDto updateTicket(int id, String won) throws ParseException {
-		Ticket t = ticketDAO.findById(id).get();
-		System.out.println(t);
-		System.out.println(won);
-		if (t.getWon() == TicketOutcome.UNCHECKED.value()) {
-			t.setWon(Integer.parseInt(won));
-			Ticket saved = ticketDAO.save(t);
-			return mapDomainToFullDto(saved);
+		try {
+			Ticket t = mapper.map(findTicket(id), Ticket.class);
+			if (t.getWon() == TicketOutcome.UNCHECKED.value()) {
+				t.setWon(Integer.parseInt(won));
+				return mapper.map(ticketDAO.save(t), TicketFullDto.class);
+			}
+			return findTicket(id);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return null;
 		}
-		return mapDomainToFullDto(t);
 	}
 
 	@Override
 	public TicketFullDto deleteTicket(int id) throws ParseException {
-		Ticket t = ticketDAO.findById(id).get();
-		ticketDAO.delete(t);
-		return mapDomainToFullDto(t);
+		try {
+			TicketFullDto response = findTicket(id);
+			ticketDAO.deleteById(id);
+			return response;
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -117,9 +118,10 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
+	@Transactional
 	public Ticket checkTicketOutcome(Ticket t) throws ParseException {
-		User u = t.getUser();
-		Bookmaker b = bookmakerDAO.findById(t.getUser().getBookmaker().getId()).get();
+		User user = t.getUser();
+		Bookmaker bookmaker = bookmakerDAO.findById(t.getUser().getBookmaker().getId()).get();
 		for (MatchTicket mt : t.getMatchesTickets()) {
 			Match m = mt.getMatch();
 			if (m.getOutcome() != mt.getOutcomePrediction()) {
@@ -129,17 +131,9 @@ public class TicketServiceImpl implements TicketService {
 		}
 		t.setWon(TicketOutcome.WON.value());
 		double prize = t.getBetAmount() * Math.pow(ODDS, t.getMatchesTickets().size());
-		Transaction tr = new Transaction();
-		tr.setTransactionType(TransactionType.TICKET_WON.value());
-		tr.setBookmaker(b);
-		tr.setUser(u);
-		tr.setTransactionDate(new Date());
-		tr.setAmount(prize);
-		tr.setCurrency("RSD");
-		tr.setRate(1);
-		tr.setConversionLog("No conversion");
-		u.setBalance(u.getBalance() + prize);
-		transactionDAO.save(tr);
+		Transaction transaction = new Transaction(new Date(), prize, TransactionType.TICKET_WON.value(), bookmaker, user);
+		user.setBalance(user.getBalance() + prize);
+		transactionDAO.save(transaction);
 		return t;
 	}
 
@@ -148,69 +142,8 @@ public class TicketServiceImpl implements TicketService {
 		List<Ticket> retrieved = ticketDAO.findByUser_Id(idUser);
 		List<TicketFullDto> result = new ArrayList<TicketFullDto>();
 		for (Ticket t : retrieved) {
-			result.add(mapDomainToFullDto(t));
+			result.add(mapper.map(t, TicketFullDto.class));
 		}
 		return result;
 	}
-
-	// helper method(s)
-
-	@Override
-	public TicketFullDto mapDomainToFullDto(Ticket t) throws ParseException {
-		TicketFullDto response = new TicketFullDto();
-		System.out.println("user: " + t.getUser());
-		response.setId(t.getId());
-		response.setBetAmount(t.getBetAmount());
-		response.setWon(t.getWon());
-		response.setUser(userService.mapDomainToNoPass(t.getUser()));
-		for (MatchTicket m : t.getMatchesTickets()) {
-			response.getMatchesTickets().add(mapDomainToFullMT(m));
-		}
-		return response;
-	}
-
-	@Override
-	public Ticket mapNoIdToDomain(TicketNoIdDto t) throws ParseException {
-		Ticket response = new Ticket();
-		response.setBetAmount(t.getBetAmount());
-		response.setWon(t.getWon());
-		if (t.getUser() != null) {
-			response.setUser(userService.mapNoPassToDomain(t.getUser()));
-		}
-		for (MatchTicketNoIdDto mt : t.getMatchesTickets()) {
-			response.getMatchesTickets().add(mapNoIdToDomainMT(mt));
-		}
-		return response;
-	}
-
-	@Override
-	public TicketNoUserDto mapDomainToNoUserDto(Ticket t) throws ParseException {
-		TicketNoUserDto response = new TicketNoUserDto();
-		response.setId(t.getId());
-		response.setBetAmount(t.getBetAmount());
-		response.setWon(t.getWon());
-		System.out.println("matches tickets: " + t.getMatchesTickets().size());
-		for (MatchTicket m : t.getMatchesTickets()) {
-			response.getMatchesTickets().add(mapDomainToFullMT(m));
-		}
-		return response;
-	}
-
-	@Override
-	public MatchTicket mapNoIdToDomainMT(MatchTicketNoIdDto mt) throws ParseException {
-		MatchTicket response = new MatchTicket();
-		response.setOutcomePrediction(mt.getOutcomePrediction());
-		response.setMatch(matchService.mapNoOpDtoToDomain(mt.getMatch()));
-		return response;
-	}
-
-	@Override
-	public MatchTicketFullDto mapDomainToFullMT(MatchTicket mt) throws ParseException {
-		MatchTicketFullDto response = new MatchTicketFullDto();
-		response.setOutcomePrediction(mt.getOutcomePrediction());
-		response.setMatch(matchService.mapDomainToNoOpDto(mt.getMatch()));
-		System.out.println("response match: " + response.getMatch());
-		return response;
-	}
-
 }
