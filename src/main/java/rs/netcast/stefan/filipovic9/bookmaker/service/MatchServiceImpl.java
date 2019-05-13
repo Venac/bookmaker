@@ -11,18 +11,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import rs.netcast.stefan.filipovic9.bookmaker.dao.MatchDAO;
+import rs.netcast.stefan.filipovic9.bookmaker.dao.OperatorDAO;
 import rs.netcast.stefan.filipovic9.bookmaker.domain.Match;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.match.MatchFullDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.match.MatchInitialRequestDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.match.MatchInitialResponseDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.match.MatchNoIdDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.match.MatchNoOpDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.operator.OperatorOnlyIdDto;
 import rs.netcast.stefan.filipovic9.bookmaker.enums.MatchOutcome;
+import rs.netcast.stefan.filipovic9.bookmaker.exception.MatchNotFoundException;
+import rs.netcast.stefan.filipovic9.bookmaker.exception.OperatorNotFoundException;
 
 @Service
 public class MatchServiceImpl implements MatchService {
 	@Autowired
 	private MatchDAO matchDAO;
+	@Autowired
+	private OperatorDAO operatorDAO;
 	@Autowired
 	private ModelMapper mapper;
 
@@ -46,38 +52,31 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public MatchFullDto findMatch(int id) {
-		try {
-			return mapper.map(matchDAO.findById(id).get(), MatchFullDto.class);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return mapper.map(matchDAO.findById(id).orElseThrow(() -> new MatchNotFoundException(id)), MatchFullDto.class);
 	}
 
 	@Override
-	public MatchFullDto updateMatch(int id, MatchFullDto m, int idOperator) throws ParseException {
-		OperatorOnlyIdDto o = new OperatorOnlyIdDto();
-		o.setId(idOperator);
-		m.setId(id);
-		m.setOperator(o);
-		return mapper.map(matchDAO.save(mapper.map(m, Match.class)), MatchFullDto.class);
+	public MatchFullDto updateMatch(int id, MatchNoIdDto m, int idOperator) throws ParseException {
+		MatchFullDto match = findMatch(id);
+		match = mapper.map(m, MatchFullDto.class);
+		match.setId(id);
+		match.setOperator(new OperatorOnlyIdDto(idOperator));
+		return mapper.map(matchDAO.save(mapper.map(match, Match.class)), MatchFullDto.class);
 	}
 
 	@Override
 	public MatchFullDto deleteMatch(int id) {
-		try {
-			MatchFullDto match = findMatch(id);
-			matchDAO.deleteById(id);
-			return match;
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
-		}
+		MatchFullDto match = findMatch(id);
+		matchDAO.deleteById(id);
+		return match;
 	}
 
 	@Override
 	public List<MatchFullDto> findBettableMatches() {
 		List<Match> matches = matchDAO.findByOutcome(MatchOutcome.SCHEDULED.value());
+		if (matches.isEmpty()) {
+			throw new MatchNotFoundException("No bettable matches found");
+		}
 		List<MatchFullDto> retrieved = new ArrayList<MatchFullDto>();
 		for (Match m : matches) {
 			retrieved.add(mapper.map(m, MatchFullDto.class));
@@ -87,7 +86,11 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public List<MatchNoOpDto> findByOperator(int id) {
+		operatorDAO.findById(id).orElseThrow(() -> new OperatorNotFoundException(id));
 		List<Match> matches = matchDAO.findByOperator_Id(id);
+		if (matches.isEmpty()) {
+			throw new MatchNotFoundException("Operator " + id + " has no matches");
+		}
 		List<MatchNoOpDto> result = new ArrayList<MatchNoOpDto>();
 		for (Match m : matches) {
 			result.add(mapper.map(m, MatchNoOpDto.class));

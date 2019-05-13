@@ -2,6 +2,8 @@ package rs.netcast.stefan.filipovic9.bookmaker.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +34,7 @@ public class BookmakerController {
 	}
 	
 	@PostMapping("/save")
-	public BookmakerFullDto addBookmaker(@RequestBody BookmakerNoIdDto b) {
+	public BookmakerFullDto addBookmaker(@Valid @RequestBody BookmakerNoIdDto b) {
 		return bookmakerService.saveBookmaker(b);
 	}
 	
@@ -42,7 +44,7 @@ public class BookmakerController {
 	}
 	
 	@PutMapping("update/{id}")
-	public BookmakerFullDto updateBookmaker(@PathVariable int id, @RequestBody BookmakerFullDto b) {
+	public BookmakerFullDto updateBookmaker(@PathVariable int id, @Valid @RequestBody BookmakerNoIdDto b) {
 		return bookmakerService.updateBookmaker(id, b);
 	}
 	

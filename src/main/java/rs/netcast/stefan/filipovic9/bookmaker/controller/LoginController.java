@@ -1,6 +1,7 @@
 package rs.netcast.stefan.filipovic9.bookmaker.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,12 +19,12 @@ public class LoginController {
 	private Access access;
 	
 	@PostMapping("/user")
-	public String generateUserJWT(@RequestBody RegistreeLogInDto user, HttpServletRequest request) {
+	public String generateUserJWT(@Valid @RequestBody RegistreeLogInDto user, HttpServletRequest request) {
 		return access.generateLogInJWT(user, request);
 	}
 	
 	@PostMapping("/operator")
-	public String generateOperatorJWT(@RequestBody RegistreeLogInDto operator, HttpServletRequest request) {
+	public String generateOperatorJWT(@Valid @RequestBody RegistreeLogInDto operator, HttpServletRequest request) {
 		return access.generateLogInJWT(operator, request);
 	}
 }

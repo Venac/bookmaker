@@ -9,6 +9,6 @@ public interface BookmakerService {
 	public List<BookmakerFullDto> findBookmakers();
 	public BookmakerFullDto saveBookmaker(BookmakerNoIdDto b);
 	public BookmakerFullDto findBookmaker(int id);
-	public BookmakerFullDto updateBookmaker(int id, BookmakerFullDto b);
+	public BookmakerFullDto updateBookmaker(int id, BookmakerNoIdDto b);
 	public BookmakerFullDto deleteBookmaker(int id);
 }

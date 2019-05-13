@@ -3,6 +3,7 @@ package rs.netcast.stefan.filipovic9.bookmaker.controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class RegisterController {
 	private Access access;
 	
 	@PostMapping("/user")
-	public RegistreeTokenDto generateUserJWT(@RequestBody RegisterDto r, HttpServletRequest request) throws IOException {
+	public RegistreeTokenDto generateUserJWT(@Valid @RequestBody RegisterDto r, HttpServletRequest request) throws IOException {
 		return access.generateRegisterJWT(r, request);
 	}
 	

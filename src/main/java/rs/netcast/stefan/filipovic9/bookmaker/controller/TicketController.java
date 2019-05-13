@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.ticket.TicketFullDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.ticket.TicketInitialResponseDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.ticket.TicketNoIdDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.ticket.TicketOnlyWonDto;
 import rs.netcast.stefan.filipovic9.bookmaker.service.TicketService;
 
 @RestController
@@ -32,7 +34,7 @@ public class TicketController {
 	}
 	
 	@PostMapping("/save")
-	public TicketInitialResponseDto saveTicket(@RequestBody TicketNoIdDto ticket, HttpServletRequest request) throws ParseException {
+	public TicketInitialResponseDto saveTicket(@Valid @RequestBody TicketNoIdDto ticket, HttpServletRequest request) throws ParseException {
 		int idUser = (int)request.getAttribute("id");
 		return ticketService.saveTicket(ticket, idUser);
 	}
@@ -49,9 +51,8 @@ public class TicketController {
 	}
 	
 	@PutMapping("update/{id}")
-	public TicketFullDto updateTicket(@PathVariable int id, @RequestBody String won) throws ParseException {
-		System.out.println("update called");
-		return ticketService.updateTicket(id, won);
+	public TicketFullDto updateTicket(@PathVariable int id, @Valid @RequestBody TicketOnlyWonDto ticket) throws ParseException {
+		return ticketService.updateTicket(id, ticket);
 	}
 	
 	@DeleteMapping("delete/{id}")

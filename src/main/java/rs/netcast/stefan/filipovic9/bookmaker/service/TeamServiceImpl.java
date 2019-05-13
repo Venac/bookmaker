@@ -11,6 +11,7 @@ import rs.netcast.stefan.filipovic9.bookmaker.dao.TeamDAO;
 import rs.netcast.stefan.filipovic9.bookmaker.domain.Team;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.team.TeamNoIdDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.team.TeamNoMatchesDto;
+import rs.netcast.stefan.filipovic9.bookmaker.exception.TeamNotFoundException;
 
 @Service
 public class TeamServiceImpl implements TeamService {
@@ -35,34 +36,22 @@ public class TeamServiceImpl implements TeamService {
 	}
 
 	@Override
-	public TeamNoMatchesDto findTeamById(int id) {
-		try {
-			return mapper.map(teamDAO.findById(id).get(), TeamNoMatchesDto.class);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
-		}
+	public TeamNoMatchesDto findTeam(int id) {
+		return mapper.map(teamDAO.findById(id).orElseThrow(() -> new TeamNotFoundException(id)),
+				TeamNoMatchesDto.class);
 	}
 
 	@Override
-	public TeamNoMatchesDto updateTeam(int id, String name) {
-		try {
-			return mapper.map(teamDAO.save(mapper.map(new TeamNoMatchesDto(id, name), Team.class)), TeamNoMatchesDto.class);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
-		}
+	public TeamNoMatchesDto updateTeam(int id, TeamNoIdDto t) {
+		Team team = teamDAO.findById(id).orElseThrow(() -> new TeamNotFoundException(id));
+		team.setName(t.getName());
+		return mapper.map(team, TeamNoMatchesDto.class);
 	}
 
 	@Override
 	public TeamNoMatchesDto deleteTeam(int id) {
-		try {
-			Team retrieved = teamDAO.findById(id).get();
-			teamDAO.deleteById(id);
-			return mapper.map(retrieved, TeamNoMatchesDto.class);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
-		}
+		TeamNoMatchesDto retrieved = findTeam(id);
+		teamDAO.deleteById(id);
+		return retrieved;
 	}
 }

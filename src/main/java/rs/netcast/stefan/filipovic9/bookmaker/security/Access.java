@@ -19,11 +19,14 @@ import rs.netcast.stefan.filipovic9.bookmaker.domain.User;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.register.RegisterDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.register.RegistreeLogInDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.register.RegistreeTokenDto;
+import rs.netcast.stefan.filipovic9.bookmaker.exception.OperatorIncorrectCredentialsException;
+import rs.netcast.stefan.filipovic9.bookmaker.exception.UserIncorrectCredentialsException;
 import rs.netcast.stefan.filipovic9.bookmaker.service.ConversionService;
 
 @Service
 public class Access {
 	public static final byte[] key = TextCodec.BASE64.decode("Yn2kjibddFAWtnPJ2AFlL8WXmohJMCvigQggaEypa5E=");
+	private static final String INCORRECT = "Incorrect email or password";
 	@Autowired
 	private UserDAO userDAO;
 	@Autowired
@@ -36,14 +39,16 @@ public class Access {
 	public String generateLogInJWT(RegistreeLogInDto r, HttpServletRequest request) {
 		if (request.getRequestURI().contains("/login/user")) {
 			User u = userDAO.findByEmailAndPassword(r.getEmail(), r.getPassword());
-			if (u != null) {
-				return generateToken(u, User.class.getSimpleName());
+			if (u == null) {
+				throw new UserIncorrectCredentialsException(INCORRECT);
 			}
+			return generateToken(u, User.class.getSimpleName());
 		} else if (request.getRequestURI().contains("/login/operator")) {
 			Operator o = operatorDAO.findByEmailAndPassword(r.getEmail(), r.getPassword());
-			if (o != null) {
+				if (o == null) {
+					throw new OperatorIncorrectCredentialsException(INCORRECT);
+				}
 				return generateToken(o, Operator.class.getSimpleName());
-			}
 		}
 		return null;
 	}

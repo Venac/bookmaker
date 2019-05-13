@@ -8,14 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.netcast.stefan.filipovic9.bookmaker.dao.OperatorDAO;
+import rs.netcast.stefan.filipovic9.bookmaker.domain.Bookmaker;
 import rs.netcast.stefan.filipovic9.bookmaker.domain.Operator;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.bookmaker.BookmakerOnlyIdDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.misc.PasswordDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.operator.OperatorFullWithMatches;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.operator.OperatorInitialRequestDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.operator.OperatorNoPassMatchesDto;
+import rs.netcast.stefan.filipovic9.bookmaker.exception.OperatorNotFoundException;
 
 @Service
-public class OperatorServiceImpl implements OperatorService{
+public class OperatorServiceImpl implements OperatorService {
 	@Autowired
 	private OperatorDAO operatorDAO;
 	@Autowired
@@ -30,43 +33,34 @@ public class OperatorServiceImpl implements OperatorService{
 		}
 		return retrieved;
 	}
-	
-	
+
 	@Override
 	public OperatorNoPassMatchesDto saveOperator(OperatorInitialRequestDto operator, int idOperator) {
-		Operator admin = operatorDAO.findById(idOperator).get();
+		Operator admin = operatorDAO.findById(idOperator).orElseThrow(() -> new OperatorNotFoundException(idOperator));
 		BookmakerOnlyIdDto b = new BookmakerOnlyIdDto(admin.getBookmaker().getId());
-		operator.setBookmaker(b);
-		return mapper.map(operatorDAO.save(mapper.map(operator, Operator.class)), OperatorNoPassMatchesDto.class);
+		Operator toBeSaved = mapper.map(operator, Operator.class);
+		toBeSaved.setBookmaker(mapper.map(b, Bookmaker.class));
+		return mapper.map(operatorDAO.save(toBeSaved), OperatorNoPassMatchesDto.class);
 	}
-	
+
 	@Override
 	public OperatorFullWithMatches findOperator(int id) {
-		try {
-			return mapper.map(operatorDAO.findById(id).get(), OperatorFullWithMatches.class);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return mapper.map(operatorDAO.findById(id).orElseThrow(() -> new OperatorNotFoundException(id)),
+				OperatorFullWithMatches.class);
 	}
-	
+
 	@Override
-	public String updateOperator(int id, String password) {
-		Operator o = operatorDAO.findById(id).get();
-		o.setPassword(password);
-		operatorDAO.save(o);
-		return "Password changed successfully";
+	public PasswordDto updateOperator(int id, PasswordDto password) {
+		Operator operator = operatorDAO.findById(id).orElseThrow(() -> new OperatorNotFoundException(id));
+		operator.setPassword(password.getPassword());
+		operatorDAO.save(operator);
+		return new PasswordDto("succesfully changed");
 	}
-	
+
 	@Override
 	public OperatorFullWithMatches deleteOperator(int id) {
-		try {
-			OperatorFullWithMatches operator = findOperator(id);
-			operatorDAO.deleteById(id);
-			return operator;
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
-		}
+		OperatorFullWithMatches operator = findOperator(id);
+		operatorDAO.deleteById(id);
+		return operator;
 	}
 }

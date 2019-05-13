@@ -1,6 +1,8 @@
 # Spring Boot REST API for online betting
 
-JavaSE 1.8; Spring Tool Suite Version: 3.9.8.RELEASE
+JavaSE 1.8; 
+Spring Tool Suite Version: 3.9.8.RELEASE;
+Server: Pivotal tc Runtime 9.0.13.B.RELEASE;
 
 REST API emulates an online bookmaker. Registered users can pick from a list of available sport matches to bet on. 
 

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.match.MatchFullDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.match.MatchInitialRequestDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.match.MatchInitialResponseDto;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.match.MatchNoIdDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.match.MatchNoOpDto;
 import rs.netcast.stefan.filipovic9.bookmaker.service.MatchService;
 
@@ -33,7 +35,7 @@ public class MatchController {
 	}
 	
 	@PostMapping("/save")
-	public MatchInitialResponseDto saveMatch(@RequestBody MatchInitialRequestDto match, HttpServletRequest request) throws ParseException {
+	public MatchInitialResponseDto saveMatch(@Valid @RequestBody MatchInitialRequestDto match, HttpServletRequest request) throws ParseException {
 		int idOperator = (int)request.getAttribute("id");
 		return matchService.saveMatch(match, idOperator);
 	}
@@ -44,7 +46,7 @@ public class MatchController {
 	}
 	
 	@PutMapping("update/{id}")
-	public MatchFullDto updateMatch(@PathVariable int id, @RequestBody MatchFullDto match, HttpServletRequest request) throws ParseException {
+	public MatchFullDto updateMatch(@PathVariable int id, @Valid @RequestBody MatchNoIdDto match, HttpServletRequest request) throws ParseException {
 		int idOperator = (int)request.getAttribute("id");
 		return matchService.updateMatch(id, match, idOperator);
 	}

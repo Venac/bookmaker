@@ -11,6 +11,7 @@ import rs.netcast.stefan.filipovic9.bookmaker.dao.BookmakerDAO;
 import rs.netcast.stefan.filipovic9.bookmaker.domain.Bookmaker;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.bookmaker.BookmakerFullDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.bookmaker.BookmakerNoIdDto;
+import rs.netcast.stefan.filipovic9.bookmaker.exception.BookmakerNotFoundException;
 
 @Service
 public class BookmakerServiceImpl implements BookmakerService {
@@ -36,34 +37,22 @@ public class BookmakerServiceImpl implements BookmakerService {
 
 	@Override
 	public BookmakerFullDto findBookmaker(int id) {
-		try {
-			return mapper.map(bookmakerDAO.findById(id).get(), BookmakerFullDto.class);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return mapper.map(bookmakerDAO.findById(id).orElseThrow(() -> new BookmakerNotFoundException(id)),
+				BookmakerFullDto.class);
 	}
 
 	@Override
-	public BookmakerFullDto updateBookmaker(int id, BookmakerFullDto b) {
-		try {
-			b.setId(id);
-			return mapper.map(bookmakerDAO.save(mapper.map(b, Bookmaker.class)), BookmakerFullDto.class);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
-		}
+	public BookmakerFullDto updateBookmaker(int id, BookmakerNoIdDto b) {
+		Bookmaker bookmaker = bookmakerDAO.findById(id).orElseThrow(() -> new BookmakerNotFoundException(id));
+		bookmaker = mapper.map(b, Bookmaker.class);
+		bookmaker.setId(id);
+		return mapper.map(bookmaker, BookmakerFullDto.class);
 	}
 
 	@Override
 	public BookmakerFullDto deleteBookmaker(int id) {
-		try {
-			BookmakerFullDto bookmaker = findBookmaker(id);
-			bookmakerDAO.deleteById(id);
-			return bookmaker;
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
-		}
+		BookmakerFullDto bookmaker = findBookmaker(id);
+		bookmakerDAO.deleteById(id);
+		return bookmaker;
 	}
 }

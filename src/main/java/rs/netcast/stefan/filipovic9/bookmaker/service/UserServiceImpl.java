@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 import rs.netcast.stefan.filipovic9.bookmaker.dao.UserDAO;
 import rs.netcast.stefan.filipovic9.bookmaker.domain.User;
+import rs.netcast.stefan.filipovic9.bookmaker.dto.misc.PasswordDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.user.UserNoIdDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.user.UserNoPassDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.user.UserWithTicketsDto;
+import rs.netcast.stefan.filipovic9.bookmaker.exception.UserNotFoundException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -40,34 +42,25 @@ public class UserServiceImpl implements UserService {
 		user.setBalance(conversionService.convertInitial(5));
 		return mapper.map(userDAO.save(user), UserNoPassDto.class);
 	}
-	
+
 	@Override
 	public UserWithTicketsDto findUser(int id) throws ParseException {
-		try {
-			return mapper.map(userDAO.findById(id).get(), UserWithTicketsDto.class);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return mapper.map(userDAO.findById(id).orElseThrow(() -> new UserNotFoundException(id)),
+				UserWithTicketsDto.class);
 	}
-	
+
 	@Override
-	public String updateUser(int idUser, String password) {
-		User u = userDAO.findById(idUser).get();
-		u.setPassword(password);
+	public PasswordDto updateUser(int idUser, PasswordDto password) {
+		User u = userDAO.findById(idUser).orElseThrow(() -> new UserNotFoundException(idUser));
+		u.setPassword(password.getPassword());
 		userDAO.save(u);
-		return "Password successfully changed";
+		return new PasswordDto("successfully changed");
 	}
 
 	@Override
 	public UserWithTicketsDto deleteUser(int id) throws ParseException {
-		try {
-			UserWithTicketsDto user = findUser(id);
-			userDAO.deleteById(id);
-			return user;
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
-		}
+		UserWithTicketsDto user = findUser(id);
+		userDAO.deleteById(id);
+		return user;
 	}
 }

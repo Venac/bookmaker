@@ -2,6 +2,8 @@ package rs.netcast.stefan.filipovic9.bookmaker.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,18 +30,18 @@ public class TeamController {
 	}
 	
 	@PostMapping("/save")
-	public TeamNoMatchesDto saveTeam(@RequestBody TeamNoIdDto teamNoIdDto) {
-		return teamService.saveTeam(teamNoIdDto);
+	public TeamNoMatchesDto saveTeam(@Valid @RequestBody TeamNoIdDto team) {
+		return teamService.saveTeam(team);
 	}
 	
 	@GetMapping("/find/{id}")
 	public TeamNoMatchesDto findTeamById(@PathVariable int id) {
-		return teamService.findTeamById(id);
+		return teamService.findTeam(id);
 	}
 	
 	@PutMapping("/update/{id}")
-	public TeamNoMatchesDto updateTeam(@PathVariable int id, @RequestBody String name) {
-		return teamService.updateTeam(id, name);
+	public TeamNoMatchesDto updateTeam(@PathVariable int id, @Valid @RequestBody TeamNoIdDto team) {
+		return teamService.updateTeam(id, team);
 	}
 	
 	@DeleteMapping("/delete/{id}")

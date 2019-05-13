@@ -36,7 +36,7 @@ public class ScheduledTasks {
 	@Scheduled(initialDelay = 3000, fixedDelay = 3600000)
 	@Transactional
 	public void resolveMatches() {
-		System.out.println("RESOLVING MATCHES");
+		System.out.println("Resolving matches...");
 		matchService.generateOutcome();
 	}
 	
@@ -45,7 +45,7 @@ public class ScheduledTasks {
 	@Scheduled(initialDelay = 5000, fixedDelay = 3600000)
 	@Transactional
 	public List<TicketFullDto> resolveTickets() throws ParseException {
-		System.out.println("RESOLVING TICKETS");
+		System.out.println("Rsolving tickets...");
 		List<Ticket> tickets = ticketService.resolveTickets();
 		emailService.sendTicketEmails(tickets);
 		List<TicketFullDto> result = new ArrayList<TicketFullDto>();

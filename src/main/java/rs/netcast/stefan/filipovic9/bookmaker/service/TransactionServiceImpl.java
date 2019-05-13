@@ -21,6 +21,8 @@ import rs.netcast.stefan.filipovic9.bookmaker.dto.transaction.TransactionAmountC
 import rs.netcast.stefan.filipovic9.bookmaker.dto.transaction.TransactionFullDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.transaction.TransactionNoUserDto;
 import rs.netcast.stefan.filipovic9.bookmaker.enums.TransactionType;
+import rs.netcast.stefan.filipovic9.bookmaker.exception.TransactionNotFoundException;
+import rs.netcast.stefan.filipovic9.bookmaker.exception.UserNotFoundException;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -45,18 +47,13 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	public TransactionFullDto findTransaction(int id) {
-		try {
-			return mapper.map(transactionDAO.findById(id).get(), TransactionFullDto.class);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return mapper.map(transactionDAO.findById(id).orElseThrow(() -> new TransactionNotFoundException(id)), TransactionFullDto.class);
 	}
 
 	@Transactional
 	@Override
 	public TransactionNoUserDto addFunds(TransactionAmountCurrencyDto transaction, int idUser) throws IOException {
-		User user = userDAO.findById(idUser).get();
+		User user = userDAO.findById(idUser).orElseThrow(() -> new UserNotFoundException(idUser));
 		Transaction t = new Transaction(new Date(), transaction.getAmount(), TransactionType.PAY_IN.value(),
 				user.getBookmaker(), user);
 		t.setCurrency(transaction.getCurrency());
@@ -67,7 +64,7 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public TransactionNoUserDto withdrawFunds(TransactionAmountCurrencyDto transaction, int idUser)
 			throws IOException {
-		User user = userDAO.findById(idUser).get();
+		User user = userDAO.findById(idUser).orElseThrow(() -> new UserNotFoundException(idUser));
 		if (transaction.getCurrency() == "RSD") {
 			if (user.getBalance() >= transaction.getAmount()) {
 				Transaction t = new Transaction(new Date(), transaction.getAmount(), TransactionType.PAY_OUT.value(),

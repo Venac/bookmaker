@@ -47,6 +47,7 @@ public class AccessFilter implements Filter {
 		operatorURIs.add("/users/findAll");
 		operatorURIs.add("/users/find");
 		operatorURIs.add("/users/delete");
+		operatorURIs.add("/users/save");
 		operatorURIs.add("/transactions/find");
 		operatorURIs.add("/transactions/findAll");
 		// for testing and demonstration purposes
@@ -85,7 +86,6 @@ public class AccessFilter implements Filter {
 	}
 	
 	public boolean userHasAccess(String URI) {
-		System.out.println("URI: " + URI);
 		for (String s : userURIs) {
 			if (URI.startsWith(s)) {
 				return true;
@@ -95,7 +95,6 @@ public class AccessFilter implements Filter {
 	}
 	
 	public boolean operatorHasAccess(String URI) {
-		System.out.println("URI: " + URI);
 		for (String s : operatorURIs) {
 			if (URI.startsWith(s)) {
 				return true;

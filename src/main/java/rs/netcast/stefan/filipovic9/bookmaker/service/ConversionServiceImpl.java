@@ -46,11 +46,19 @@ public class ConversionServiceImpl implements ConversionService {
 		String urlString = "https://free.currencyconverterapi.com/api/v6/convert?q=" + currency
 				+ "_RSD&compact=ultra&apiKey=" + key;
 		URL url = new URL(urlString);
+		try {
+		System.out.println(urlString);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.connect();
 		JsonObject json = new JsonParser().parse(new InputStreamReader((InputStream) conn.getContent()))
 				.getAsJsonObject();
 		return json.get(currency + "_RSD").getAsDouble();
+		} catch (IOException e) {
+			double test = 100;
+			System.out.println("Obtaining exchange rate for " + currency + " has failed...");
+			System.out.println("Setting test exchange rate for " + currency + " too " + test);
+			return test;
+		}
 	}
 	
 	public void getExchangeRates() throws IOException {

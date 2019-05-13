@@ -2,6 +2,7 @@ package rs.netcast.stefan.filipovic9.bookmaker.dto.match;
 
 import java.util.Date;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -14,7 +15,9 @@ import rs.netcast.stefan.filipovic9.bookmaker.dto.operator.OperatorOnlyIdDto;
 import rs.netcast.stefan.filipovic9.bookmaker.dto.team.TeamNoMatchesDto;
 
 @Data @AllArgsConstructor @NoArgsConstructor
-public class MatchInitialRequestDto {
+public class MatchNoIdDto {
+	@Min(0)
+	private int outcome;
 	@NotNull
 	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
 	private Date matchDate;
@@ -23,5 +26,5 @@ public class MatchInitialRequestDto {
 	@NotNull
 	private TeamNoMatchesDto visitingTeam;
 	@NotNull
-	private OperatorOnlyIdDto operator;
+	private OperatorOnlyIdDto operator;	
 }
